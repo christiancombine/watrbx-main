@@ -1,4 +1,5 @@
 reuploaded bc why not?
+just use php-cgi with nginx and fix the depracated errors ur self
 
 # watrbx 2015/2016
 
