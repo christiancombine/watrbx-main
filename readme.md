@@ -31,3 +31,6 @@ apache wont be done :kek:
 
 > [!CAUTION]
 > help will not be given setting this up, what you see is what you get. (if there are any issues with the code itself support will be provided but thats it)
+> no wait shut the fuk up watrabi
+> WINDOWS : u need WEMP by electron friends
+> Linux : just get some LEMP client lmao
