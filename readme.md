@@ -35,11 +35,11 @@ apache wont be done :kek:
 # chud tutorial by combine :
 > WINDOWS : u need WEMP by electron friends
 > Linux : just get some LEMP client lmao
-U have to : change hardcoded URL's
-MAKE YOUR OWN BOOTSTRAPPER
-import the sql in phpmyadmin
-change the .env.example name to .env 
-configure it
+- U have to : change hardcoded URL's
+- MAKE YOUR OWN BOOTSTRAPPER
+- import the sql in phpmyadmin
+- change the .env.example name to .env 
+- configure it
 and your DONE TO MAKE THE SITE BE ABLE TO RUN
 # if u get some depracated errors just download the "malcowane jajca" in releases 
 and i dunno :sob:
