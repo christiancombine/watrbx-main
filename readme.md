@@ -32,5 +32,17 @@ apache wont be done :kek:
 > [!CAUTION]
 > help will not be given setting this up, what you see is what you get. (if there are any issues with the code itself support will be provided but thats it)
 > no wait shut the fuk up watrabi
+# chud tutorial by combine :
 > WINDOWS : u need WEMP by electron friends
 > Linux : just get some LEMP client lmao
+U have to : change hardcoded URL's
+MAKE YOUR OWN BOOTSTRAPPER
+import the sql in phpmyadmin
+change the .env.example name to .env 
+configure it
+and your DONE TO MAKE THE SITE BE ABLE TO RUN
+# if u get some depracated errors just download the "malcowane jajca" in releases 
+and i dunno :sob:
+# some special notes
+> [!NOTE]
+> its easy after this 
