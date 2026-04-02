@@ -41,7 +41,7 @@ apache wont be done :kek:
 - change the .env.example name to .env 
 - configure it
 and your DONE TO MAKE THE SITE BE ABLE TO RUN
-# if u get some depracated errors just download the "malcowane jajca" in releases 
+# if u get some depracated errors just download the "malcowe jajca" in releases 
 and i dunno :sob:
 # some special notes
 > [!NOTE]
