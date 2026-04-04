@@ -37,6 +37,7 @@ apache wont be done :kek:
 > Linux : just get some LEMP client lmao
 - U have to : change hardcoded URL's
 - MAKE YOUR OWN BOOTSTRAPPER
+- or skid from korone's
 - import the sql in phpmyadmin
 - change the .env.example name to .env 
 - configure it
