@@ -1,3 +1,5 @@
+check admin panel branch for the admin panel source
+
 reuploaded bc why not?
 just use php-cgi with nginx and fix the( JUST DOWNLOAD THE VENDORS I UPLOADED TO RELEASES )
 
