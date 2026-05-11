@@ -8,14 +8,9 @@ use watrlabs\watrkit\pagebuilder;
 
 class sitefunctions {
     
-    public $key = ''; // TODO: DO NOT SHOW THIS HERE
+    public $key = 'kzjdL3lbXc4ZpHP571VLUrbxWHCIeGEP';
     public $method = 'AES-128-CTR'; 
     public $iv = '5449494959313423';
-
-    function construct__() {
-        $this->key = $_ENV["random_key"];
-        $this->iv = $_ENV["encryption_iv"];
-    }
     
     public function encrypt($text){
         //$method = $this->method;
@@ -28,29 +23,52 @@ class sitefunctions {
         return $decrypted;
     }
 
-    public static function export($rows, $filename)
-    {
+      public function get_friendly_name($assettype){
+        $assettypes = array(
+            'Image' => 1,
+            'TShirt' => 2,
+            'Audio' => 3,
+            'Mesh' => 4,
+            'Lua' => 5,
+            'Hat' => 8,
+            'Place' => 9,
+            'Model' => 10,
+            'Shirt' => 11,
+            'Pants' => 12,
+            'Decal' => 13,
+            'Head' => 17,
+            'Face' => 18,
+            'Gear' => 19,
+            'Badge' => 21,
+            'Animation' => 24,
+            'Torso' => 27,
+            'RightArm' => 28,
+            'LeftArm' => 29,
+            'LeftLeg' => 30,
+            'RightLeg' => 31,
+            'Package' => 32,
+            'GamePass' => 34,
+            'Plugin' => 38,
+            'MeshPart' => 40,
+            'HairAccessory' => 41,
+            'FaceAccessory' => 42,
+            'NeckAccessory' => 43,
+            'ShoulderAccessory' => 44,
+            'FrontAccessory' => 45,
+            'BackAccessory' => 46,
+            'WaistAccessory' => 47,
+            'ClimbAnimation' => 48,
+            'DeathAnimation' => 49,
+            'FallAnimation' => 50,
+            'IdleAnimation' => 51,
+            'JumpAnimation' => 52,
+            'RunAnimation' => 53,
+            'SwimAnimation' => 54,
+            'WalkAnimation' => 55
+        );
 
-        if (empty($rows)) {
-            die("Nothing to export.");
-        }
-
-        header('Content-Type: text/csv');
-        header("Content-Disposition: attachment; filename=\"$filename\"");
-
-        $out = fopen('php://output', 'w');
-
-        fputcsv($out, array_keys((array)$rows[0]));
-
-        foreach ($rows as $row) {
-            fputcsv($out, (array)$row);
-        }
-
-        fclose($out);
-        exit;
-
+        return array_search($assettype, $assettypes);
     }
-
 
     public function format_number($int){
 
@@ -95,10 +113,8 @@ class sitefunctions {
         
         if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
             $ip = $_SERVER["HTTP_CF_CONNECTING_IP"];
-        } elseif (isset($_SERVER['REMOTE_ADDR'])) {
-            $ip = $_SERVER['REMOTE_ADDR'];
         } else {
-            return "127.0.0.1";
+            $ip = $_SERVER['REMOTE_ADDR'];
         }
         
         if(isset($ip)){
@@ -195,25 +211,13 @@ class sitefunctions {
         }
         $src = imagecreatefrompng($file);
         $dst = imagecreatetruecolor($newwidth, $newheight);
-
-
-        // Fix transparency
-        imagealphablending($dst, false);
-        imagesavealpha($dst, true);
-        $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
-        imagefill($dst, 0, 0, $transparent);
-
-        // Fix black outlining
-        imagealphablending($src, true);
-        imagesavealpha($src, true);
-
         imagecopyresampled($dst, $src, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
 
         return imagepng($dst);
     }
 
     // ty https://stackoverflow.com/questions/21671179/how-to-generate-a-new-guid
-    public function createguid() {
+    function createguid() {
         if (function_exists('com_create_guid') === true) {
             return trim(com_create_guid(), '{}');
         }
@@ -268,7 +272,7 @@ class sitefunctions {
         
         $encoded = json_encode($message);
         $encrypted = $this->encrypt($encoded);
-        setcookie("msg", $encrypted, time() + 500, "/", "." . $_ENV["APP_DOMAIN"]);
+        setcookie("msg", $encrypted, time() + 500, '');
         return $encrypted;
     }
     
@@ -285,12 +289,12 @@ class sitefunctions {
             
             if($decoded["type"] == "error"){
                 $page->build_component("status", ["status"=>"error", "msg"=>$decoded["message"]]);
-                setcookie("msg", $msg, time() - 500, "/", "." . $_ENV["APP_DOMAIN"]);
+                setcookie("msg", $msg, time() - 500, '');
             } elseif($decoded["type"] == "notice"){
                 $page->build_component("status", ["status"=>"confirm", "msg"=>$decoded["message"]]);
-                setcookie("msg", $msg, time() - 500, "/", "." . $_ENV["APP_DOMAIN"]);
+                setcookie("msg", $msg, time() - 500, '');
             } else {
-                throw new Exception('Invalid message type!');
+                //throw new Exception('Invalid message type!');
             }
             
         } else {

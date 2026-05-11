@@ -8,7 +8,7 @@ class Service {
 
     private $GetService; 
     private $Service;
-    private $Target = "http://10.10.0.4:64989";
+    private $Target = "127.0.0.1:64989";
 
     function __construct($Target) {
 
@@ -101,8 +101,5 @@ class Service {
             return [$success, $error->getMessage()];
         }
     }
-
-
-    
 
 }

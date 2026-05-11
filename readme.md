@@ -1,49 +1,8 @@
-reuploaded bc why not?
-just use php-cgi with nginx and fix the( JUST DOWNLOAD THE VENDORS I UPLOADED TO RELEASES )
-
-# watrbx 2015/2016
-
-a march 2016 roblox private server
-
-(it says 2015/2016 because some pages are taken from dec 2015)
-
-# in dev
-obviously in development
-
-if you'd like to contribute that'd be nice
+# watrbx admin panel
+this is uses leaked simulping html to recreate the 2015 roblox admin panel
 
 # setup
-**this project uses the fileinfo php extension, make sure to install it**
+`composer install`
+and make sure you connect the database to the production site database
 
-copy .env.example and rename it to .env (fill it out)
-
-run `composer install` (we use a lot of composer packages)
-
-**make sure you add the schema in schema.sql** (no migration system yet, sorry)
-
-and make sure you add this to your nginx config
-```
-location / {  
-	try_files $uri $uri/ /index.php$is_args$query_string;  
-} 
-```
-apache wont be done :kek:
-
-> [!CAUTION]
-> help will not be given setting this up, what you see is what you get. (if there are any issues with the code itself support will be provided but thats it)
-> no wait shut the fuk up watrabi
-# chud tutorial by combine :
-> WINDOWS : u need WEMP by electron friends
-> Linux : just get some LEMP client lmao
-- U have to : change hardcoded URL's
-- MAKE YOUR OWN BOOTSTRAPPER
-- or skid from korone's
-- import the sql in phpmyadmin
-- change the .env.example name to .env 
-- configure it
-and your DONE TO MAKE THE SITE BE ABLE TO RUN
-# if u get some depracated errors just download the "malcowe jajca" in releases 
-and i dunno :sob:
-# some special notes
-> [!NOTE]
-> its easy after this 
+# have fun ig

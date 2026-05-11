@@ -10,52 +10,132 @@ class Routing {
     protected $currentprefix = '';
     protected $currentmiddleware = null;
 
-    protected function addRoute(string $method, string $uri, callable $callback): void {
+    public function get(string $uri, callable $callback) {
         $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
 
         if ($this->currentmiddleware) {
             $originalcallback = $callback;
             $middleware = $this->currentmiddleware;
-
-            $callback = function(...$args) use ($middleware, $originalcallback) {
+            
+            $callback = function() use ($middleware, $originalcallback) {
                 $middleware();
-                return $originalcallback(...$args);
+                return call_user_func_array($originalcallback, func_get_args());
             };
         }
 
-        $this->routes[$method][strtolower($fullUri)] = $callback;
-    }
-
-    public function get(string $uri, callable $callback) {
-        $this->addRoute('GET', $uri, $callback);
+        $this->routes['GET'][$fullUri] = $callback;
     }
 
     public function post(string $uri, callable $callback) {
-        $this->addRoute('POST', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['POST'][$fullUri] = $callback;
     }
     
     public function put(string $uri, callable $callback) {
-        $this->addRoute('POST', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['PUT'][$fullUri] = $callback;
     }
     
     public function del(string $uri, callable $callback) {
-        $this->addRoute('DELETE', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['DELETE'][$fullUri] = $callback;
     }
     
     public function connect(string $uri, callable $callback) {
-       $this->addRoute('CONNECT', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['CONNECT'][$fullUri] = $callback;
     }
     
     public function options(string $uri, callable $callback) {
-        $this->addRoute('OPTIONS', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['OPTIONS'][$fullUri] = $callback;
     }
     
     public function trace(string $uri, callable $callback) {
-        $this->addRoute('TRACE', $uri, $callback);
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['TRACE'][$fullUri] = $callback;
     }
     
     public function patch(string $uri, callable $callback) {
-        $this->addRoute('PATCH', $uri, $callback); 
+        $fullUri = $this->currentprefix . (rtrim($uri, '/') ?: '/');
+
+        if ($this->currentmiddleware) {
+            $originalcallback = $callback;
+            $middleware = $this->currentmiddleware;
+            
+            $callback = function() use ($middleware, $originalcallback) {
+                $middleware();
+                return call_user_func_array($originalcallback, func_get_args());
+            };
+        }
+
+        $this->routes['PATCH'][$fullUri] = $callback;
     }
     
     public function group($prefix, $routes, $middleware = null) {
@@ -76,15 +156,7 @@ class Routing {
         $uri = rtrim($uri, '/') ?: '/';
         
         if (isset($this->routes[$method][$uri])) {
-            $method = call_user_func($this->routes[$method][$uri]);
-            if(is_array($method)){
-                header("Content-type: application/json");
-                echo json_encode($method);
-                die();
-            } else {
-                echo $method;
-                return;
-            }
+            return call_user_func($this->routes[$method][$uri]);
         }
         
         if(isset($this->routes[$method])) {

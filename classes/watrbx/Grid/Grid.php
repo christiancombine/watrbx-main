@@ -7,8 +7,10 @@ class Grid {
 
     private $options;
 
-    function __construct($endpoint = null, $wsdl = __DIR__ . "/../../../storage/aj6uj.wsdl") {
-         $this->options = [
+    function __construct($endpoint = null, $wsdl = "https://tjs-nut.pics/i/aj6uj.wsdl") {
+        try {
+
+            $this->options = [
                 \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_URL => $wsdl,
                 \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_CLASSMAP => \ClassMap::get(),
                 \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_SOAP_VERSION => SOAP_1_1,
@@ -16,6 +18,20 @@ class Grid {
             ];
 
             $client = new \SoapClient($wsdl, $this->options);
+
+        } catch (\SoapFault $e) {
+
+            $fallbackWsdl = __DIR__ . "/../../../storage/aj6uj.wsdl";
+
+            $this->options = [
+                \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_URL => $fallbackWsdl,
+                \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_CLASSMAP => \ClassMap::get(),
+                \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_SOAP_VERSION => SOAP_1_1,
+                \WsdlToPhp\PackageBase\AbstractSoapClientBase::WSDL_CONNECTION_TIMEOUT => 300
+            ];
+
+            $client = new \SoapClient($fallbackWsdl, $this->options);
+        }
     }
     
     public function getConfig(){

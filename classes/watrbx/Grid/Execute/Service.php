@@ -1,6 +1,6 @@
 <?php
 
-namespace watrbx\Grid\Close;
+namespace watrbx\Grid\Execute;
 
 use watrbx\Grid\Grid;
 
@@ -63,11 +63,11 @@ class Service {
 
         if ($Service->Execute(new \StructType\Execute($jobId, $Script)) !== false) {
             $result = $Service->getResult();
-            return $result->getExecuteResult();
+            return [true, $result->getExecuteResult()];
         } else {
             $error = $Service->getLastError();
             $error = $error['ServiceType\Execute::Execute'];
-            return $error->getMessage();
+            return [false, $error->getMessage()];
         }
     }
 
@@ -92,11 +92,11 @@ class Service {
 
         if ($Service->ExecuteEx(new \StructType\ExecuteEx($jobId, $Script)) !== false) {
             $result = $Service->getResult();
-            return $result->getExecuteExResult();
+            return [true, $result->getExecuteExResult()];
         } else {
             $error = $Service->getLastError();
             $error = $error['ServiceType\Execute::ExecuteEx'];
-            return $error->getMessage();
+            return [false, $error->getMessage()];
         }
     }
 

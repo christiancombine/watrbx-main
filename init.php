@@ -24,19 +24,6 @@ set_error_handler(function ($errno, $errstr, $errfile, $errline) {
     throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
 });
 
-register_shutdown_function(function () {
-    $error = error_get_last();
-
-    if ($error !== null) {
-        ob_clean();
-        http_response_code(500);
-        header("Content-type: text/plain");
-        var_dump($error);
-        die("watrbx is currently down. please try again later");
-    }
-});
-
-
 require_once __DIR__ . '/vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
@@ -69,12 +56,10 @@ try {
         'prefix'    => '', // if you have a prefix for all your tables.
         'options'   => [
             PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ]
     ];
+
     $connection = new Connection('mysql', $config);
     $db = $connection->getQueryBuilder(); 
 
@@ -89,5 +74,3 @@ try {
     require("../views/really_bad_500.php");
     die();
 }
-
-date_default_timezone_set('America/New_York');
